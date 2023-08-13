@@ -12,6 +12,8 @@ from llama_index import download_loader
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from time import sleep
+import subprocess #コマンドを実行
+from webdriver_manager.chrome import ChromeDriverManager #ブラウザのバージョンアップ対応
 
 
 st.markdown('### 配送関連情報取得app')
@@ -20,7 +22,7 @@ st.caption('llamaindex ocr')
 os.environ['OPENAI_API_KEY'] = st.secrets['OPENAI_API_KEY']
 
 # 画像を保存する一時的なディレクトリを作成
-temp_dir = Path("temp")
+temp_dir = Path("data")
 temp_dir.mkdir(exist_ok=True)
 
 #ファイルのアップロード
@@ -38,7 +40,7 @@ ImageReader = download_loader("ImageReader")
 
 # If the Image has key-value pairs text, use text_type = "key_value"
 loader = ImageReader(text_type = "plain text")
-# file_path = Path(r'C:\Users\hskw1\git_space\llamaindex_ocr\data\送り状番号画像.PNG')
+
 documents = loader.load_data(file=image_path)
 
 #リスト内の要素を抽出
@@ -55,7 +57,19 @@ st.markdown('###### 濃飛運輸倉庫 問い合わせNo')
 st.code(num)
 
 ##########################selenium
-driver = webdriver.Chrome(executable_path=r'C:\Users\hskw1\git_space\llamaindex_ocr\chromedriver')
+
+#ヘッドレスモード
+cmd = 'pip install --upgrade chromedriver_binary' 
+res = subprocess.call(cmd, shell=True) #True 文字列で指定 False リストで指定
+
+chrome_options = webdriver.ChromeOptions()
+prefs = {"profile.default_content_setting_values.notifications" : 2} #通知ポップアップを無効
+chrome_options.add_experimental_option("prefs",prefs)
+chrome_options.add_argument('--headless')
+driver = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=chrome_options)
+
+
+# driver = webdriver.Chrome(executable_path=r'C:\Users\hskw1\git_space\llamaindex_ocr\chromedriver')
 driver.get('https://www3.nohhi.co.jp/rktrace/trace.html')
 
 #name属性で要素を検索する
@@ -112,9 +126,14 @@ weight = driver.find_element(\
 weight = weight.text
 
 st.markdown('###### 配送関連情報')
-st.code(f'【最新状況】{situation}\n【配送業者】{deliverly_company}\n【問い合わせ番号】{toiawse_num}\n\
-        【電話番号】{tel}\n【個数】{cnt}\n【重量】{weight}kg\
-        ')
+
+content = f'様\n日頃は大変お世話になっております。\nご依頼頂きました商品の問い合わせ番号等を送信いたします。\n何卒宜しくお願い申し上げます。\n\n【最新状況】{situation}\n【配送業者】{deliverly_company}\n【問い合わせ番号】{toiawse_num}\n【電話番号】{tel}\n【個数】{cnt}\n【重量】{weight}kg'
+st.code(content)
+
+st.caption('link')
+link = '[濃飛運輸倉庫](https://www3.nohhi.co.jp/rktrace/trace.html)'
+st.markdown(link, unsafe_allow_html=True)
+
 
 # 全ての処理が完了した後にtemp_dirと中の画像ファイルを削除
 shutil.rmtree(temp_dir)
