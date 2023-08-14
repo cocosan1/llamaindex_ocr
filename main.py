@@ -35,6 +35,7 @@ if uploaded_file is not None:
     image.save(image_path)
 else:
     st.warning("PNGファイルをアップロードしてください")
+    st.stop()
 
 ImageReader = download_loader("ImageReader")
 
