@@ -37,7 +37,7 @@ else:
     st.warning("PNGファイルをアップロードしてください")
     st.stop()
 
-ImageReader = download_loader("ImageReader")
+ImageReader = download_loader("ImageReader", custom_path="local_dir")
 
 # If the Image has key-value pairs text, use text_type = "key_value"
 loader = ImageReader(text_type = "plain text")
