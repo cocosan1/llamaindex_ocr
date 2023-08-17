@@ -67,7 +67,7 @@ chrome_options = webdriver.ChromeOptions()
 prefs = {"profile.default_content_setting_values.notifications" : 2} #通知ポップアップを無効
 chrome_options.add_experimental_option("prefs",prefs)
 chrome_options.add_argument('--headless')
-driver = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=chrome_options, custom_path="local_dir")
+driver = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=chrome_options)
 
 
 # driver = webdriver.Chrome(executable_path=r'C:\Users\hskw1\git_space\llamaindex_ocr\chromedriver')
