@@ -57,7 +57,7 @@ num = num[0]
 st.markdown('###### 濃飛運輸倉庫 問い合わせNo')
 st.code(num)
 
-##########################selenium
+########################################################################selenium
 
 #ヘッドレスモード
 cmd = 'pip install --upgrade chromedriver_binary' 
@@ -81,7 +81,7 @@ chrome_options.add_argument("--disable-features=VizDisplayCompositor")
 # スクレイピングの場合、この機能が望ましくない場合がある
 
 
-driver = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=chrome_options)
+driver = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
 
 
 # driver = webdriver.Chrome(executable_path=r'C:\Users\hskw1\git_space\llamaindex_ocr\chromedriver')
