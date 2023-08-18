@@ -66,7 +66,21 @@ res = subprocess.call(cmd, shell=True) #True 文字列で指定 False リスト�
 chrome_options = webdriver.ChromeOptions()
 prefs = {"profile.default_content_setting_values.notifications" : 2} #通知ポップアップを無効
 chrome_options.add_experimental_option("prefs",prefs)
+chrome_options.add_argument('--disable-gpu')
 chrome_options.add_argument('--headless')
+chrome_options.add_argument("--no-sandbox")
+#セキュリティのためにサンドボックス環境内で実行される。
+# 一部の状況ではこのサンドボックス機能が問題を引き起こすことがあります
+chrome_options.add_argument("--disable-dev-shm-usage")
+#ブラウザが共有メモリを使用しないように設定します。代わりに一般的なRAMを使用するため、一部の制約を回避する
+chrome_options.add_argument("--disable-features=NetworkService")
+#一部の状況や環境でNetwork Serviceが正しく機能しないことがあり、ブラウザの動作に問題を引き起こす可能性があります。
+chrome_options.add_argument("--window-size=1920x1080")
+chrome_options.add_argument("--disable-features=VizDisplayCompositor")
+#ウェブページの描画を最適化して滑らかなスクロールやアニメーションを実現.
+# スクレイピングの場合、この機能が望ましくない場合がある
+
+
 driver = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=chrome_options)
 
 
