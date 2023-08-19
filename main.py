@@ -14,7 +14,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from time import sleep
 import subprocess #コマンドを実行
-from webdriver_manager.chrome import ChromeDriverManager #ブラウザのバージョンアップ対応
 from selenium.webdriver.chrome.service import Service as ChromeService
 
 
@@ -61,11 +60,6 @@ st.code(num)
 
 ########################################################################selenium
 
-#ヘッドレスモード
-# ヘッドレスモードの設定 
-options = Options() 
-options.add_argument("--headless=new")
-
 # cmd = 'pip install --upgrade chromedriver_binary' 
 # res = subprocess.call(cmd, shell=True) #True 文字列で指定 False リストで指定
 
@@ -85,10 +79,15 @@ options.add_argument("--headless=new")
 # options.add_argument("--disable-features=VizDisplayCompositor")
 # #ウェブページの描画を最適化して滑らかなスクロールやアニメーションを実現.
 # # スクレイピングの場合、この機能が望ましくない場合がある
+# # スクレイピングの場合、この機能が望ましくない場合がある
 
-driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install(), options=options))
+# ヘッドレスモードの設定 
+options = Options() 
+options.add_argument("--headless=new")
+options.add_argument('--disable-gpu')
 
-# driver = webdriver.Chrome(executable_path=r'C:\Users\hskw1\git_space\llamaindex_ocr\chromedriver')
+driver = webdriver.Chrome(options=options)
+
 driver.get('https://www3.nohhi.co.jp/rktrace/trace.html')
 
 #name属性で要素を検索する
