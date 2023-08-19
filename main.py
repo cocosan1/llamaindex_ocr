@@ -11,9 +11,11 @@ from llama_index import download_loader
 #スクレイピング
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
 from time import sleep
 import subprocess #コマンドを実行
 from webdriver_manager.chrome import ChromeDriverManager #ブラウザのバージョンアップ対応
+from selenium.webdriver.chrome.service import Service as ChromeService
 
 
 st.markdown('### 配送関連情報取得app')
@@ -60,35 +62,40 @@ st.code(num)
 ########################################################################selenium
 
 #ヘッドレスモード
-cmd = 'pip install --upgrade chromedriver_binary' 
-res = subprocess.call(cmd, shell=True) #True 文字列で指定 False リストで指定
+# cmd = 'pip install --upgrade chromedriver_binary' 
+# res = subprocess.call(cmd, shell=True) #True 文字列で指定 False リストで指定
 
-chrome_options = webdriver.ChromeOptions()
-prefs = {"profile.default_content_setting_values.notifications" : 2} #通知ポップアップを無効
-chrome_options.add_experimental_option("prefs",prefs)
-chrome_options.add_argument('--disable-gpu')
-chrome_options.add_argument('--headless')
-chrome_options.add_argument("--no-sandbox")
-#セキュリティのためにサンドボックス環境内で実行される。
-# 一部の状況ではこのサンドボックス機能が問題を引き起こすことがあります
-chrome_options.add_argument("--disable-dev-shm-usage")
-#ブラウザが共有メモリを使用しないように設定します。代わりに一般的なRAMを使用するため、一部の制約を回避する
-chrome_options.add_argument("--disable-features=NetworkService")
-#一部の状況や環境でNetwork Serviceが正しく機能しないことがあり、ブラウザの動作に問題を引き起こす可能性があります。
-chrome_options.add_argument("--window-size=1920x1080")
-chrome_options.add_argument("--disable-features=VizDisplayCompositor")
-#ウェブページの描画を最適化して滑らかなスクロールやアニメーションを実現.
-# スクレイピングの場合、この機能が望ましくない場合がある
+# chrome_options = webdriver.ChromeOptions()
+# prefs = {"profile.default_content_setting_values.notifications" : 2} #通知ポップアップを無効
+# chrome_options.add_experimental_option("prefs",prefs)
+# chrome_options.add_argument('--disable-gpu')
+# chrome_options.add_argument('--headless')
+# chrome_options.add_argument("--no-sandbox")
+# #セキュリティのためにサンドボックス環境内で実行される。
+# # 一部の状況ではこのサンドボックス機能が問題を引き起こすことがあります
+# chrome_options.add_argument("--disable-dev-shm-usage")
+# #ブラウザが共有メモリを使用しないように設定します。代わりに一般的なRAMを使用するため、一部の制約を回避する
+# chrome_options.add_argument("--disable-features=NetworkService")
+# #一部の状況や環境でNetwork Serviceが正しく機能しないことがあり、ブラウザの動作に問題を引き起こす可能性があります。
+# chrome_options.add_argument("--window-size=1920x1080")
+# chrome_options.add_argument("--disable-features=VizDisplayCompositor")
+# #ウェブページの描画を最適化して滑らかなスクロールやアニメーションを実現.
+# # スクレイピングの場合、この機能が望ましくない場合がある
+ 
+# ヘッドレスモードの設定 
+options = Options() 
+options.add_argument("--headless=new")
 
 
-driver = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
+
+driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install(), options=options))
 
 
 # driver = webdriver.Chrome(executable_path=r'C:\Users\hskw1\git_space\llamaindex_ocr\chromedriver')
 driver.get('https://www3.nohhi.co.jp/rktrace/trace.html')
 
 #name属性で要素を検索する
-search_bar = driver.find_element_by_name("command5")
+search_bar = driver.find_element(By.NAME, "command5")
 #入力場所に問い合わせ番号を入力
 search_bar.send_keys(num)
 #enter
