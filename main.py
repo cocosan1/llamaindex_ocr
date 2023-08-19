@@ -14,7 +14,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from time import sleep
 import subprocess #コマンドを実行
-from selenium.webdriver.chrome.service import Service as ChromeService
 
 
 st.markdown('### 配送関連情報取得app')
@@ -59,27 +58,6 @@ st.markdown('###### 濃飛運輸倉庫 問い合わせNo')
 st.code(num)
 
 ########################################################################selenium
-
-# cmd = 'pip install --upgrade chromedriver_binary' 
-# res = subprocess.call(cmd, shell=True) #True 文字列で指定 False リストで指定
-
-# # chrome_options = webdriver.ChromeOptions()
-# prefs = {"profile.default_content_setting_values.notifications" : 2} #通知ポップアップを無効
-# options.add_experimental_option("prefs",prefs)
-# options.add_argument('--disable-gpu')
-# # chrome_options.add_argument('--headless')
-# options.add_argument("--no-sandbox")
-# #セキュリティのためにサンドボックス環境内で実行される。
-# # 一部の状況ではこのサンドボックス機能が問題を引き起こすことがあります
-# options.add_argument("--disable-dev-shm-usage")
-# #ブラウザが共有メモリを使用しないように設定します。代わりに一般的なRAMを使用するため、一部の制約を回避する
-# options.add_argument("--disable-features=NetworkService")
-# #一部の状況や環境でNetwork Serviceが正しく機能しないことがあり、ブラウザの動作に問題を引き起こす可能性があります。
-# options.add_argument("--window-size=1920x1080")
-# options.add_argument("--disable-features=VizDisplayCompositor")
-# #ウェブページの描画を最適化して滑らかなスクロールやアニメーションを実現.
-# # スクレイピングの場合、この機能が望ましくない場合がある
-# # スクレイピングの場合、この機能が望ましくない場合がある
 
 # ヘッドレスモードの設定 
 options = Options() 

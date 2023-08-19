@@ -9,7 +9,6 @@ cachetools==5.3.1
 certifi==2023.7.22
 cffi==1.15.1
 charset-normalizer==3.2.0
-chromedriver-binary==118.0.5955.0.0
 click==8.1.7
 colorama==0.4.6
 dataclasses-json==0.5.14
@@ -57,7 +56,6 @@ Pympler==1.0.1
 PySocks==1.7.1
 pytesseract==0.3.10
 python-dateutil==2.8.2
-python-dotenv==1.0.0
 pytz==2023.3
 pytz-deprecation-shim==0.1.0.post0
 PyYAML==6.0.1
@@ -96,7 +94,6 @@ tzlocal==4.3.1
 urllib3==1.26.16
 validators==0.21.2
 watchdog==3.0.0
-webdriver-manager==4.0.0
 wsproto==1.2.0
 yarl==1.9.2
 zipp==3.16.2
