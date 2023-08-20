@@ -12,9 +12,6 @@ from llama_index import download_loader
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
-from time import sleep
-import subprocess #コマンドを実行
-
 
 st.markdown('### 配送関連情報取得app')
 st.caption('llamaindex ocr')
