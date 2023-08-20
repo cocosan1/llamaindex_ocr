@@ -74,14 +74,14 @@ search_bar.submit()
 
 #配達状況
 situation1 = driver.find_element(\
-    by=By.XPATH, value='/html/body/table/tbody/tr/td/table[1]/tbody/tr[3]/td[2]/font')
+    By.XPATH, '/html/body/table/tbody/tr/td/table[1]/tbody/tr[3]/td[2]/font')
 
 situation1 = situation1.text
 
 #営業所着時間
 if situation1 == '配達完了':
     situation = driver.find_element(\
-    by=By.XPATH, value='/html/body/table/tbody/tr/td/table[1]/tbody/tr[3]/td[2]')
+    By.XPATH, '/html/body/table/tbody/tr/td/table[1]/tbody/tr[3]/td[2]')
 
     situation = situation.text
 
